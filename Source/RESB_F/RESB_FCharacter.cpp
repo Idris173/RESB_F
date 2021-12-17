@@ -35,8 +35,20 @@ ARESB_FCharacter::ARESB_FCharacter()
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 300.0f; // The camera follows at this distance behind the character	
-	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
+
+	//摄像机镜头控制：关闭与pawn控制相关
+
+	CameraBoom->bUsePawnControlRotation = false; // Rotate the arm based on the controller
+	CameraBoom->bInheritPitch = false;
+	CameraBoom->bInheritYaw = false;
+	CameraBoom->bInheritRoll = false;
+
+
+	//CameraBoom->AddRelativeRotation(FRotator(0.0f, -45.0f, 45.0f));
+	CameraBoom->AddLocalRotation(FRotator(-45.0f, 45.0f, 0.0f));
+
+	CameraBoom->TargetArmLength = 800.0f; // The camera follows at this distance behind the character	
+	
 
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
